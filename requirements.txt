@@ -1,0 +1,22 @@
+# repository dependencies
+python-dotenv
+
+# get tickers
+requests
+
+# VADER sentiment analysis
+vaderSentiment
+
+# Finbert sentiment analysis
+transformers
+torch
+pandas
+numpy
+
+# Agents
+pandas
+
+# Langgraph
+langchain_core
+langchain-anthropic
+langgraph
