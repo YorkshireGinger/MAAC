@@ -20,3 +20,6 @@ pandas
 langchain_core
 langchain-anthropic
 langgraph
+
+# Backtest
+matplotlib

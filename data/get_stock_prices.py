@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 def get_stock_prices(
     tickers,
     interval='day',
-    interval_multiplier=5,
+    interval_multiplier=1,
     start_date='2025-01-02',
     end_date='2025-01-20'
 ):

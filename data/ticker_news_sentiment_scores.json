@@ -1,0 +1,650 @@
+{
+  "AAPL": [
+    {
+      "headline": "Apple Launches Revolutionary AR Glasses",
+      "snippet": "Apple introduced its much-anticipated augmented reality glasses, setting a new standard in wearable technology.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      }
+    },
+    {
+      "headline": "Apple Faces Criticism Over iOS Update Bugs",
+      "snippet": "Users report several issues after the latest iOS update, prompting calls for urgent fixes.",
+      "headline_score": {
+        "neg": 0.326,
+        "neu": 0.674,
+        "pos": 0.0,
+        "compound": -0.4404
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.878,
+        "pos": 0.122,
+        "compound": 0.2023
+      }
+    },
+    {
+      "headline": "Apple Partners with HealthTech Firms",
+      "snippet": "Apple collaborates with leading health technology companies to expand its health monitoring capabilities.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.839,
+        "pos": 0.161,
+        "compound": 0.3182
+      }
+    },
+    {
+      "headline": "Apple Opens New Data Center in Europe",
+      "snippet": "A new state-of-the-art data center in Germany will boost Apple\u2019s cloud services in the region.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.838,
+        "pos": 0.162,
+        "compound": 0.4019
+      }
+    },
+    {
+      "headline": "Apple Stock Surges After Product Reveal",
+      "snippet": "Shares of Apple rose sharply following the unveiling of its latest hardware lineup.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.845,
+        "pos": 0.155,
+        "compound": 0.296
+      }
+    },
+    {
+      "headline": "Apple Faces Lawsuit Over App Store Practices",
+      "snippet": "A group of developers has filed a lawsuit against Apple, alleging unfair App Store policies.",
+      "headline_score": {
+        "neg": 0.241,
+        "neu": 0.759,
+        "pos": 0.0,
+        "compound": -0.2263
+      },
+      "snippet_score": {
+        "neg": 0.278,
+        "neu": 0.722,
+        "pos": 0.0,
+        "compound": -0.6124
+      }
+    },
+    {
+      "headline": "Apple Invests in Renewable Energy",
+      "snippet": "Apple commits to new renewable energy projects to power its global operations.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 0.656,
+        "pos": 0.344,
+        "compound": 0.2732
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.758,
+        "pos": 0.242,
+        "compound": 0.296
+      }
+    },
+    {
+      "headline": "Apple Enhances Security for Devices",
+      "snippet": "A new security update aims to protect users from emerging cyber threats.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 0.625,
+        "pos": 0.375,
+        "compound": 0.34
+      },
+      "snippet_score": {
+        "neg": 0.167,
+        "neu": 0.536,
+        "pos": 0.298,
+        "compound": 0.296
+      }
+    },
+    {
+      "headline": "Apple Faces Supply Chain Delays",
+      "snippet": "Production delays in Asia may impact the availability of Apple\u2019s newest devices.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      }
+    },
+    {
+      "headline": "Apple CEO Discusses Future Innovations",
+      "snippet": "In a recent interview, Apple\u2019s CEO outlined the company\u2019s vision for the next decade.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.867,
+        "pos": 0.133,
+        "compound": 0.25
+      }
+    }
+  ],
+  "TSLA": [
+    {
+      "headline": "Tesla Unveils Next-Gen Battery Tech",
+      "snippet": "Tesla introduced a new battery technology promising longer range and faster charging.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.803,
+        "pos": 0.197,
+        "compound": 0.4019
+      }
+    },
+    {
+      "headline": "Tesla Faces Scrutiny Over Autopilot Safety",
+      "snippet": "Regulators are investigating recent accidents involving Tesla\u2019s Autopilot system.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 0.641,
+        "pos": 0.359,
+        "compound": 0.4215
+      },
+      "snippet_score": {
+        "neg": 0.223,
+        "neu": 0.777,
+        "pos": 0.0,
+        "compound": -0.3182
+      }
+    },
+    {
+      "headline": "Tesla Stock Hits New High",
+      "snippet": "Shares of Tesla reached a record high after strong delivery numbers.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.537,
+        "pos": 0.463,
+        "compound": 0.7096
+      }
+    },
+    {
+      "headline": "Tesla Launches Affordable EV Model",
+      "snippet": "Tesla revealed a new, more affordable electric vehicle aimed at mass markets.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      }
+    },
+    {
+      "headline": "Tesla Faces Production Delays",
+      "snippet": "Supply chain issues have caused delays in Tesla\u2019s latest vehicle deliveries.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      }
+    },
+    {
+      "headline": "Tesla Autopilot Gets Major Update",
+      "snippet": "A new software update brings enhanced self-driving capabilities to Tesla vehicles.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      }
+    },
+    {
+      "headline": "Tesla Opens New Charging Stations",
+      "snippet": "Tesla expands its Supercharger network across Europe and Asia.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.851,
+        "pos": 0.149,
+        "compound": 0.1027
+      }
+    },
+    {
+      "headline": "Tesla Faces Lawsuit Over Labor Practices",
+      "snippet": "A lawsuit alleges unfair labor practices at one of Tesla\u2019s manufacturing plants.",
+      "headline_score": {
+        "neg": 0.275,
+        "neu": 0.725,
+        "pos": 0.0,
+        "compound": -0.2263
+      },
+      "snippet_score": {
+        "neg": 0.333,
+        "neu": 0.667,
+        "pos": 0.0,
+        "compound": -0.6124
+      }
+    },
+    {
+      "headline": "Tesla Announces Quarterly Profits",
+      "snippet": "Tesla reports strong quarterly profits, beating analyst expectations.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 0.508,
+        "pos": 0.492,
+        "compound": 0.4404
+      },
+      "snippet_score": {
+        "neg": 0.211,
+        "neu": 0.352,
+        "pos": 0.437,
+        "compound": 0.4939
+      }
+    },
+    {
+      "headline": "Tesla CEO Teases New Product",
+      "snippet": "Elon Musk hints at an upcoming product launch during a press conference.",
+      "headline_score": {
+        "neg": 0.355,
+        "neu": 0.645,
+        "pos": 0.0,
+        "compound": -0.296
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      }
+    }
+  ],
+  "NVDA": [
+    {
+      "headline": "NVIDIA Launches Next-Gen GPU",
+      "snippet": "NVIDIA unveiled its latest graphics card, boasting unprecedented performance for gaming and AI.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      }
+    },
+    {
+      "headline": "NVIDIA Faces Backlash Over Pricing",
+      "snippet": "Consumers express frustration over the high prices of NVIDIA\u2019s new GPUs.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.237,
+        "neu": 0.763,
+        "pos": 0.0,
+        "compound": -0.4767
+      }
+    },
+    {
+      "headline": "NVIDIA Stock Rises on AI Demand",
+      "snippet": "Strong demand for AI chips drives NVIDIA\u2019s stock to new highs.",
+      "headline_score": {
+        "neg": 0.231,
+        "neu": 0.769,
+        "pos": 0.0,
+        "compound": -0.128
+      },
+      "snippet_score": {
+        "neg": 0.109,
+        "neu": 0.652,
+        "pos": 0.239,
+        "compound": 0.4215
+      }
+    },
+    {
+      "headline": "NVIDIA Expands Data Center Solutions",
+      "snippet": "NVIDIA introduces new products for high-performance computing in data centers.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 0.492,
+        "pos": 0.508,
+        "compound": 0.2732
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      }
+    },
+    {
+      "headline": "NVIDIA Faces Regulatory Hurdles in Acquisition",
+      "snippet": "NVIDIA\u2019s planned acquisition of an AI startup faces regulatory scrutiny.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      }
+    },
+    {
+      "headline": "NVIDIA Showcases Cloud Gaming Advances",
+      "snippet": "NVIDIA demonstrates new cloud gaming technology at a major industry event.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      }
+    },
+    {
+      "headline": "NVIDIA Reports Decline in Gaming Revenue",
+      "snippet": "A drop in gaming hardware sales impacts NVIDIA\u2019s quarterly earnings.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.189,
+        "neu": 0.811,
+        "pos": 0.0,
+        "compound": -0.2732
+      }
+    },
+    {
+      "headline": "NVIDIA Expands Global Operations",
+      "snippet": "NVIDIA opens new offices and research centers in Asia and Europe.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 0.682,
+        "pos": 0.318,
+        "compound": 0.1027
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      }
+    },
+    {
+      "headline": "NVIDIA Announces Developer Conference",
+      "snippet": "NVIDIA schedules its annual developer conference, focusing on AI and graphics innovation.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.809,
+        "pos": 0.191,
+        "compound": 0.3818
+      }
+    },
+    {
+      "headline": "NVIDIA CEO Discusses Future of AI",
+      "snippet": "NVIDIA\u2019s CEO shares insights on the future of artificial intelligence in a keynote speech.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.694,
+        "pos": 0.306,
+        "compound": 0.6486
+      }
+    }
+  ],
+  "MSFT": [
+    {
+      "headline": "Microsoft Unveils New Surface Devices",
+      "snippet": "Microsoft introduced its latest Surface lineup, featuring improved performance and design.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.763,
+        "pos": 0.237,
+        "compound": 0.4767
+      }
+    },
+    {
+      "headline": "Microsoft Faces Criticism Over Azure Outage",
+      "snippet": "A major Azure outage disrupted services for thousands of customers worldwide.",
+      "headline_score": {
+        "neg": 0.367,
+        "neu": 0.633,
+        "pos": 0.0,
+        "compound": -0.4404
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      }
+    },
+    {
+      "headline": "Microsoft Stock Reaches All-Time High",
+      "snippet": "Strong cloud growth pushes Microsoft\u2019s stock to record levels.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 0.769,
+        "pos": 0.231,
+        "compound": 0.0516
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.543,
+        "pos": 0.457,
+        "compound": 0.7096
+      }
+    },
+    {
+      "headline": "Microsoft Invests in AI Startups",
+      "snippet": "Microsoft increases investments in artificial intelligence startups worldwide.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.693,
+        "pos": 0.307,
+        "compound": 0.4767
+      }
+    },
+    {
+      "headline": "Microsoft Faces Antitrust Investigation",
+      "snippet": "Regulators have launched an antitrust investigation into Microsoft\u2019s business practices.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.857,
+        "pos": 0.143,
+        "compound": 0.128
+      }
+    },
+    {
+      "headline": "Microsoft Expands Gaming Division",
+      "snippet": "Microsoft acquires a major gaming studio to bolster its Xbox portfolio.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 0.682,
+        "pos": 0.318,
+        "compound": 0.1027
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      }
+    },
+    {
+      "headline": "Microsoft Opens New Data Centers",
+      "snippet": "Microsoft opens new data centers in Africa and South America to expand its global reach.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.793,
+        "pos": 0.207,
+        "compound": 0.34
+      }
+    },
+    {
+      "headline": "Microsoft Faces Employee Protests",
+      "snippet": "Employees protest company policies, demanding changes to workplace practices.",
+      "headline_score": {
+        "neg": 0.388,
+        "neu": 0.612,
+        "pos": 0.0,
+        "compound": -0.2263
+      },
+      "snippet_score": {
+        "neg": 0.358,
+        "neu": 0.642,
+        "pos": 0.0,
+        "compound": -0.4404
+      }
+    },
+    {
+      "headline": "Microsoft Partners with Universities",
+      "snippet": "Microsoft collaborates with leading universities to advance AI research.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      }
+    },
+    {
+      "headline": "Microsoft CEO Outlines Future Strategy",
+      "snippet": "Satya Nadella discusses Microsoft\u2019s long-term vision in a recent interview.",
+      "headline_score": {
+        "neg": 0.0,
+        "neu": 1.0,
+        "pos": 0.0,
+        "compound": 0.0
+      },
+      "snippet_score": {
+        "neg": 0.0,
+        "neu": 0.818,
+        "pos": 0.182,
+        "compound": 0.25
+      }
+    }
+  ]
+}

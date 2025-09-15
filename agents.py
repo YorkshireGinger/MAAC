@@ -1,18 +1,20 @@
-# %%
 import pandas as pd
-from get_stock_prices import get_stock_prices
+from data.get_stock_prices import get_stock_prices
 import logging
 
+# Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Valuation/Momentum Agent – uses market prices to compute a simple score
+# Valuation/Momentum Agent Tools
 def calculate_rsi(prices, period=14):
+
     delta = prices.diff()
     gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
     loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
     rs = gain / loss
     rsi = 100 - (100 / (1 + rs))
+
     return rsi
 
 def run_valuation_agent_tool(
@@ -24,6 +26,8 @@ def run_valuation_agent_tool(
     rsi_period=14
 ):
     logger.info(f"Starting Valuation/Momentum Tool ...")
+
+    # Get daily prices from API
     daily_prices = get_stock_prices(
         tickers=tickers,
         interval=interval,
@@ -31,45 +35,64 @@ def run_valuation_agent_tool(
         start_date=start_date,
         end_date=end_date
     )
+
+    # Convert to DataFrame
     daily_prices_df = pd.DataFrame(daily_prices)
+
+    # Calculate RSI for each ticker
     working_rsi_df = daily_prices_df.groupby('ticker')['close'].apply(
         lambda x: calculate_rsi(x, rsi_period)
     )
+
+    # Reformat DataFrame
     working_rsi_df = working_rsi_df.reset_index().rename(
         columns={'close': f'rsi_{rsi_period}'}
     ).drop(columns=['level_1'])
+
+    # Merge rolling RSI with date column to create a series
     rsi_df = working_rsi_df.merge(
         daily_prices_df[['time']],
         how='left',
         left_index=True,
         right_index=True
     )
+
+    # Convert to JSON for better LLM ingestion
     rsi_json = rsi_df.to_json(orient='records', date_format='iso')
+
     logger.info("Valuation/Momentum Tool Completed!")
+
     return rsi_json
 
-# %%
-# News/Sentiment Agent – uses news headlines to compute a sentiment score
+
+# News/Sentiment Agent Tool
 import json
-from sentiment_stock_news import analyze_headline_sentiment
+from data.sentiment_stock_news import analyze_headline_sentiment
 import numpy as np
 
 def run_news_sentiment_agent_tool(
     run_news_pipeline=False, 
-    news_file='stock_news.json', 
-    output_file='ticker_news_sentiment_scores.json'
-    ):
+    news_file='data/stock_news.json', 
+    output_file='data/ticker_news_sentiment_scores.json'
+):
+    
     logger.info("Starting News/Sentiment Tool ...")
+
+    # With more time we could automate the news fetching 
     if run_news_pipeline:
         logger.debug("Running news pipeline...")
         # TODO use the news fetching and sentiment analysis code here
+    # But for now I am using pre-written news data
     else:
         logger.debug("Collecting pre-written news...")
+
+        # Load pre-written news data
         with open(news_file, 'r') as f:
             stock_news = json.load(f)
-        logger.debug(f"Loaded news for {len(stock_news)} tickers.")
+            logger.debug(f"Loaded news for {len(stock_news)} tickers.")
+        
+        # Analyze sentiment for each headline and snippet using VADER
         sentiment_scores = {}
-
         for ticker, news_items in stock_news.items():
             sentiment_scores[ticker] = []
             for item in news_items:
@@ -84,20 +107,31 @@ def run_news_sentiment_agent_tool(
                     'snippet_score': snippet_score
                 })
 
+        # Save sentiment scores for each headline & to output file
         with open(output_file, 'w') as f:
             json.dump(sentiment_scores, f, indent=2)
             logger.debug(f"Sentiment scores saved to {output_file}.")
 
-        # TODO could add a weighted average that weights most recent articles more or that weights extreme sentiment more as these are the stories that may move price
+        # Calculate average and median sentiment scores for each ticker
+        # TODO could add a weighted average that weights most recent articles 
+        # more or that weights extreme sentiment more as these are the stories 
+        # that may move price
         summary_scores = {}
         for ticker, items in sentiment_scores.items():
-            snippet_scores = [item['snippet_score']['compound'] for item in items if 'compound' in item['snippet_score']]
+            # Get all scores
+            snippet_scores = [
+                item['snippet_score']['compound']
+                for item in items
+                if 'compound' in item['snippet_score']
+            ]
+            # Calculate average and median
             if snippet_scores:
                 avg = float(np.mean(snippet_scores))
                 median = float(np.median(snippet_scores))
             else:
                 avg = None
                 median = None
+            # Using VADER thresholds assign overall sentiment score
             summary_scores[ticker] = {
                 'average_snippet_sentiment_value': avg,
                 'average_snippet_sentiment': (
@@ -112,12 +146,14 @@ def run_news_sentiment_agent_tool(
                     'neutral'
                 )
             }
+
         logger.info("News/Sentiment Tool Completed!")
+
         return sentiment_scores, summary_scores
 
-# %%
-# Fundamental/Analyst Agent – uses fundamental data to compute a simple score
-from get_stock_financial_metrics import get_stock_financial_metrics
+
+# Fundamental/Analyst Agent Tool
+from data.get_stock_financial_metrics import get_stock_financial_metrics
 import pandas as pd
 
 def run_fundamental_agent_tool(
@@ -127,9 +163,12 @@ def run_fundamental_agent_tool(
     period='ttm',
     limit=1
 ):
-    # TODO choose better signals/metrics to return
+    
     # TODO add some gauge as to how good/bad each metric is relative to its peers - this could a percentile
+
     logger.info("Starting Fundamental/Analyst Tool ...")
+
+    # Get financial metrics from API
     stock_financial_metrics = get_stock_financial_metrics(
         tickers=tickers,
         report_period_lte=report_period_lte,
@@ -137,37 +176,44 @@ def run_fundamental_agent_tool(
         period=period,
         limit=limit
     )
+
+    # Convert to DataFrame
     financial_metrics_df = pd.DataFrame(stock_financial_metrics)
+
+    # Select the Quality Metrics we want to use
     financial_metrics_df_cut = (
         financial_metrics_df
         .loc[:,['ticker', 'fiscal_period', 'period',
-        'price_to_earnings_ratio', 'peg_ratio',
+        'price_to_earnings_ratio', 'free_cash_flow_growth',
         'return_on_invested_capital', 'debt_to_equity',
-        'operating_income_growth']]
+        'earnings_per_share', 'free_cash_flow_per_share',
+        'interest_coverage']]
         .copy()
+    )
+
+    # Calculate an extra metric earnings to free cash flow ratio
+    financial_metrics_df_cut['earnings_to_fcf'] = (
+        financial_metrics_df_cut['earnings_per_share'] /
+        financial_metrics_df_cut['free_cash_flow_per_share']
     )
 
     # Define scorecard thresholds for each metric
     def score_pe(pe):
         if pd.isna(pe):
             return 0
-        if pe < 10:
-            return 3
-        elif pe < 20:
+        if pe < 30:
             return 2
-        elif pe < 30:
+        elif pe < 50:
             return 1
         else:
             return 0
 
-    def score_peg(peg):
-        if pd.isna(peg):
+    def score_fcf_growth(fcf_growth):
+        if pd.isna(fcf_growth):
             return 0
-        if peg < 1:
-            return 3
-        elif peg < 2:
+        if fcf_growth > 0.25:
             return 2
-        elif peg < 3:
+        elif fcf_growth > 0.1:
             return 1
         else:
             return 0
@@ -175,11 +221,9 @@ def run_fundamental_agent_tool(
     def score_roic(roic):
         if pd.isna(roic):
             return 0
-        if roic > 0.2:
-            return 3
-        elif roic > 0.1:
+        if roic > 0.25:
             return 2
-        elif roic > 0.05:
+        elif roic > 0.1:
             return 1
         else:
             return 0
@@ -188,44 +232,53 @@ def run_fundamental_agent_tool(
         if pd.isna(dte):
             return 0
         if dte < 0.5:
-            return 3
-        elif dte < 1:
             return 2
-        elif dte < 2:
+        elif dte < 1:
             return 1
         else:
             return 0
 
-    def score_op_income_growth(growth):
-        if pd.isna(growth):
-            return 0
-        if growth > 0.2:
-            return 3
-        elif growth > 0.1:
+    def score_interest_coverage(ic):
+        if pd.isna(ic):
             return 2
-        elif growth > 0.05:
+        if ic > 10:
+            return 2
+        elif ic > 4:
+            return 1
+        else:
+            return 0
+        
+    def score_earnings_to_fcf(e_fcf):
+        if pd.isna(e_fcf):
+            return 0
+        if 0.9 <= e_fcf <= 1.1:
+            return 2
+        elif (0.7 <= e_fcf < 0.9) or (1.1 < e_fcf <= 1.3):
             return 1
         else:
             return 0
 
     # Apply scoring functions to each row
     financial_metrics_df_cut['pe_score'] = financial_metrics_df_cut['price_to_earnings_ratio'].apply(score_pe)
-    financial_metrics_df_cut['peg_score'] = financial_metrics_df_cut['peg_ratio'].apply(score_peg)
+    financial_metrics_df_cut['fcf_growth_score'] = financial_metrics_df_cut['free_cash_flow_growth'].apply(score_fcf_growth)
+    financial_metrics_df_cut['earnings_to_fcf_score'] = financial_metrics_df_cut['earnings_to_fcf'].apply(score_earnings_to_fcf)
     financial_metrics_df_cut['roic_score'] = financial_metrics_df_cut['return_on_invested_capital'].apply(score_roic)
     financial_metrics_df_cut['debt_to_equity_score'] = financial_metrics_df_cut['debt_to_equity'].apply(score_debt_to_equity)
-    financial_metrics_df_cut['op_income_growth_score'] = financial_metrics_df_cut['operating_income_growth'].apply(score_op_income_growth)
+    financial_metrics_df_cut['interest_coverage_score'] = financial_metrics_df_cut['interest_coverage'].apply(score_interest_coverage)
 
     # Sum up the scores for a total score per ticker
     financial_metrics_df_cut['fundamental_score'] = (
         financial_metrics_df_cut['pe_score'] +
-        financial_metrics_df_cut['peg_score'] +
+        financial_metrics_df_cut['fcf_growth_score'] +
+        financial_metrics_df_cut['earnings_to_fcf_score'] +
         financial_metrics_df_cut['roic_score'] +
         financial_metrics_df_cut['debt_to_equity_score'] +
-        financial_metrics_df_cut['op_income_growth_score']
+        financial_metrics_df_cut['interest_coverage_score']
     )
 
+    # Convert to JSON for better LLM ingestion
     financial_metrics_json = financial_metrics_df_cut.to_json(orient='records', date_format='iso')
-    logger.info("Fundamental/Analyst Tool Completed!")
-    return financial_metrics_json
 
-# %%
+    logger.info("Fundamental/Analyst Tool Completed!")
+    
+    return financial_metrics_json

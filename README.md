@@ -1,42 +1,91 @@
-# MAAC
-Multi Agent Alpha Copilot (MAAC) is an AI agentic framework to enhance the efficiency of active investor workflows. 
+# MAAC: Multi-Agent Alpha Copilot
 
-## Data collection
+## Overview
 
-I have pre-ran the sentiment snd will not let this run for your runtime as it takes too long to pip install whcih goes against the brief of being quick and simple. Here you could use uv. 
+MAAC (Multi-Agent Alpha Copilot) is a proof-of-concept AI system for financial analysis and investment recommendations. It orchestrates several specialized agents—each responsible for a distinct aspect of equity analysis (valuation/momentum, news sentiment, and fundamental quality)—and combines their outputs into a unified recommendation. The system also includes a backtesting module to evaluate the performance of its recommendations.
 
-I have actually used VADER as it was quicker to install, though may misjudge thr sentiment of finance jargon. Nevertheless, for headlines and short snippets, in addiiton to this being a PoC, it will do. These are thresholds recomended by the creators.
+**Key Features:**
+- Multi-agent architecture for stock analysis
+- Integrates valuation/momentum, news sentiment, and fundamental analysis
+- Uses Anthropic's Claude model for LLM-based reasoning
+- Fetches real stock price, news, and financial data via API
+- Backtests recommendations over a 3-month forward period
+- Plots and logs performance metrics
 
+## Requirements
 
-Sentiment	Compound Score Range
-Positive	≥ 0.05
-Neutral	> –0.05 and < 0.05
-Negative	≤ –0.05
+- Python 3.10+
+- API keys for [financialdatasets.ai](https://financialdatasets.ai/) and [Anthropic](https://www.anthropic.com/)
+- See `requirements.txt` for all Python dependencies
 
+## Installation
 
-Model	Speed	Accuracy	Domain-Specific	Best For
-FinBERT	Medium	High	✅ Yes	Deep financial analysis
-VADER	Fast	Medium	❌ No	Quick scans, social media
-BERT + FPB	Medium	High	✅ Yes	Headlines, reports
-SVM + TF-IDF	Fast	Medium	❌ No	Custom, interpretable
+1. **Clone the repository:**
+   ```bash
+   git clone <repo-url>
+   cd MAAC
+   ```
 
-to collect the news I have used the news endpoint with the api. They have their own sentiment but I have ran my own for robustness. They only provide headline and link to the story, so this time I have just manully extracted the key points. With more time you could automate this. 
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-ideas for fundamental/quality 
-forward p/e
-div yield
-free cash flow |(consistent growth)
-roic
-roce 
-roe (consistent)
-d/e
-current ratio
-earnings/fcf
-earnings quality
-capex/assets or revenues
+3. **Set up environment variables:**
+   - Copy `.env.example` to `.env` (if provided) or create a `.env` file in the root directory.
+   - Add your API keys:
+     ```env
+     FINANCIAL_DATASETS_API_KEY="<your-financialdatasets-api-key>"
+     ANTHROPIC_API_KEY="<your-anthropic-api-key>"
+     ANTHROPIC_MODEL="claude-sonnet-4-20250514"
+     ```
 
+## Usage
 
-## Where did I use a copilot
-`sentiment_stock_news` all of it. I had heard of FinBERT but didn't know how to code it up.
-the creation of fake news healdines and snippets
-the packaging of code into fucntions once tested
+Run the main pipeline from the terminal:
+
+```bash
+python run.py --as_of_date YYYY-MM-DD
+```
+- `--as_of_date` (optional): The analysis date in `YYYY-MM-DD` format. Defaults to `2025-01-02` if not provided.
+
+Example:
+```bash
+python run.py --as_of_date 2025-01-02
+```
+
+## What Happens When You Run It?
+1. **MAAC Orchestration:**
+   - The system analyzes a set of tickers (default: AAPL, MSFT, NVDA, TSLA) using three agents:
+     - Valuation/Momentum (RSI, price action)
+     - News/Sentiment (VADER, FinBERT)
+     - Fundamental/Analyst (financial metrics)
+   - Each agent fetches real data and produces recommendations.
+   - The LLM (Anthropic Claude) coordinates and combines these into a final recommendation for each ticker.
+
+2. **Backtesting:**
+   - The system simulates a 3-month forward period from the `as_of_date`.
+   - It calculates and logs:
+     - 3-month forward returns for MAAC "BUY" tickers vs all tickers
+     - Annualized Sharpe ratios for both portfolios
+     - Plots cumulative returns and saves the plot as `cumulative_returns_3m.png`
+
+3. **Logging:**
+   - All key steps and results are logged to the terminal for transparency.
+
+## File Structure
+- `run.py` — Main entry point for running the MAAC pipeline
+- `graph.py` — Multi-agent orchestration and LLM logic
+- `agents.py` — Agent tools for valuation, sentiment, and fundamentals
+- `backtest.py` — Backtesting and performance evaluation
+- `data/` — Data fetching utilities and news/sentiment analysis
+- `requirements.txt` — Python dependencies
+- `.env` — Environment variables (API keys)
+
+## Notes
+- The system is a proof-of-concept and may require further tuning for production use.
+- Ensure your API keys are valid and have sufficient quota.
+- The default tickers and dates can be modified in `run.py` or via command-line arguments.
+
+## License
+This project is for research and educational purposes only. See `LICENSE` if provided.

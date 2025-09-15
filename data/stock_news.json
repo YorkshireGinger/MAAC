@@ -1,0 +1,210 @@
+{
+    "AAPL": [
+        {
+            "date": "2025-09-01",
+            "headline": "Apple Launches Revolutionary AR Glasses",
+            "snippet": "Apple introduced its much-anticipated augmented reality glasses, setting a new standard in wearable technology."
+        },
+        {
+            "date": "2025-09-02",
+            "headline": "Apple Faces Criticism Over iOS Update Bugs",
+            "snippet": "Users report several issues after the latest iOS update, prompting calls for urgent fixes."
+        },
+        {
+            "date": "2025-09-03",
+            "headline": "Apple Partners with HealthTech Firms",
+            "snippet": "Apple collaborates with leading health technology companies to expand its health monitoring capabilities."
+        },
+        {
+            "date": "2025-09-04",
+            "headline": "Apple Opens New Data Center in Europe",
+            "snippet": "A new state-of-the-art data center in Germany will boost Apple’s cloud services in the region."
+        },
+        {
+            "date": "2025-09-05",
+            "headline": "Apple Stock Surges After Product Reveal",
+            "snippet": "Shares of Apple rose sharply following the unveiling of its latest hardware lineup."
+        },
+        {
+            "date": "2025-09-06",
+            "headline": "Apple Faces Lawsuit Over App Store Practices",
+            "snippet": "A group of developers has filed a lawsuit against Apple, alleging unfair App Store policies."
+        },
+        {
+            "date": "2025-09-07",
+            "headline": "Apple Invests in Renewable Energy",
+            "snippet": "Apple commits to new renewable energy projects to power its global operations."
+        },
+        {
+            "date": "2025-09-08",
+            "headline": "Apple Enhances Security for Devices",
+            "snippet": "A new security update aims to protect users from emerging cyber threats."
+        },
+        {
+            "date": "2025-09-09",
+            "headline": "Apple Faces Supply Chain Delays",
+            "snippet": "Production delays in Asia may impact the availability of Apple’s newest devices."
+        },
+        {
+            "date": "2025-09-10",
+            "headline": "Apple CEO Discusses Future Innovations",
+            "snippet": "In a recent interview, Apple’s CEO outlined the company’s vision for the next decade."
+        }
+    ],
+    "TSLA": [
+        {
+            "date": "2025-09-01",
+            "headline": "Tesla Unveils Next-Gen Battery Tech",
+            "snippet": "Tesla introduced a new battery technology promising longer range and faster charging."
+        },
+        {
+            "date": "2025-09-02",
+            "headline": "Tesla Faces Scrutiny Over Autopilot Safety",
+            "snippet": "Regulators are investigating recent accidents involving Tesla’s Autopilot system."
+        },
+        {
+            "date": "2025-09-03",
+            "headline": "Tesla Stock Hits New High",
+            "snippet": "Shares of Tesla reached a record high after strong delivery numbers."
+        },
+        {
+            "date": "2025-09-04",
+            "headline": "Tesla Launches Affordable EV Model",
+            "snippet": "Tesla revealed a new, more affordable electric vehicle aimed at mass markets."
+        },
+        {
+            "date": "2025-09-05",
+            "headline": "Tesla Faces Production Delays",
+            "snippet": "Supply chain issues have caused delays in Tesla’s latest vehicle deliveries."
+        },
+        {
+            "date": "2025-09-06",
+            "headline": "Tesla Autopilot Gets Major Update",
+            "snippet": "A new software update brings enhanced self-driving capabilities to Tesla vehicles."
+        },
+        {
+            "date": "2025-09-07",
+            "headline": "Tesla Opens New Charging Stations",
+            "snippet": "Tesla expands its Supercharger network across Europe and Asia."
+        },
+        {
+            "date": "2025-09-08",
+            "headline": "Tesla Faces Lawsuit Over Labor Practices",
+            "snippet": "A lawsuit alleges unfair labor practices at one of Tesla’s manufacturing plants."
+        },
+        {
+            "date": "2025-09-09",
+            "headline": "Tesla Announces Quarterly Profits",
+            "snippet": "Tesla reports strong quarterly profits, beating analyst expectations."
+        },
+        {
+            "date": "2025-09-10",
+            "headline": "Tesla CEO Teases New Product",
+            "snippet": "Elon Musk hints at an upcoming product launch during a press conference."
+        }
+    ],
+    "NVDA": [
+        {
+            "date": "2025-09-01",
+            "headline": "NVIDIA Launches Next-Gen GPU",
+            "snippet": "NVIDIA unveiled its latest graphics card, boasting unprecedented performance for gaming and AI."
+        },
+        {
+            "date": "2025-09-02",
+            "headline": "NVIDIA Faces Backlash Over Pricing",
+            "snippet": "Consumers express frustration over the high prices of NVIDIA’s new GPUs."
+        },
+        {
+            "date": "2025-09-03",
+            "headline": "NVIDIA Stock Rises on AI Demand",
+            "snippet": "Strong demand for AI chips drives NVIDIA’s stock to new highs."
+        },
+        {
+            "date": "2025-09-04",
+            "headline": "NVIDIA Expands Data Center Solutions",
+            "snippet": "NVIDIA introduces new products for high-performance computing in data centers."
+        },
+        {
+            "date": "2025-09-05",
+            "headline": "NVIDIA Faces Regulatory Hurdles in Acquisition",
+            "snippet": "NVIDIA’s planned acquisition of an AI startup faces regulatory scrutiny."
+        },
+        {
+            "date": "2025-09-06",
+            "headline": "NVIDIA Showcases Cloud Gaming Advances",
+            "snippet": "NVIDIA demonstrates new cloud gaming technology at a major industry event."
+        },
+        {
+            "date": "2025-09-07",
+            "headline": "NVIDIA Reports Decline in Gaming Revenue",
+            "snippet": "A drop in gaming hardware sales impacts NVIDIA’s quarterly earnings."
+        },
+        {
+            "date": "2025-09-08",
+            "headline": "NVIDIA Expands Global Operations",
+            "snippet": "NVIDIA opens new offices and research centers in Asia and Europe."
+        },
+        {
+            "date": "2025-09-09",
+            "headline": "NVIDIA Announces Developer Conference",
+            "snippet": "NVIDIA schedules its annual developer conference, focusing on AI and graphics innovation."
+        },
+        {
+            "date": "2025-09-10",
+            "headline": "NVIDIA CEO Discusses Future of AI",
+            "snippet": "NVIDIA’s CEO shares insights on the future of artificial intelligence in a keynote speech."
+        }
+    ],
+    "MSFT": [
+        {
+            "date": "2025-09-01",
+            "headline": "Microsoft Unveils New Surface Devices",
+            "snippet": "Microsoft introduced its latest Surface lineup, featuring improved performance and design."
+        },
+        {
+            "date": "2025-09-02",
+            "headline": "Microsoft Faces Criticism Over Azure Outage",
+            "snippet": "A major Azure outage disrupted services for thousands of customers worldwide."
+        },
+        {
+            "date": "2025-09-03",
+            "headline": "Microsoft Stock Reaches All-Time High",
+            "snippet": "Strong cloud growth pushes Microsoft’s stock to record levels."
+        },
+        {
+            "date": "2025-09-04",
+            "headline": "Microsoft Invests in AI Startups",
+            "snippet": "Microsoft increases investments in artificial intelligence startups worldwide."
+        },
+        {
+            "date": "2025-09-05",
+            "headline": "Microsoft Faces Antitrust Investigation",
+            "snippet": "Regulators have launched an antitrust investigation into Microsoft’s business practices."
+        },
+        {
+            "date": "2025-09-06",
+            "headline": "Microsoft Expands Gaming Division",
+            "snippet": "Microsoft acquires a major gaming studio to bolster its Xbox portfolio."
+        },
+        {
+            "date": "2025-09-07",
+            "headline": "Microsoft Opens New Data Centers",
+            "snippet": "Microsoft opens new data centers in Africa and South America to expand its global reach."
+        },
+        {
+            "date": "2025-09-08",
+            "headline": "Microsoft Faces Employee Protests",
+            "snippet": "Employees protest company policies, demanding changes to workplace practices."
+        },
+        {
+            "date": "2025-09-09",
+            "headline": "Microsoft Partners with Universities",
+            "snippet": "Microsoft collaborates with leading universities to advance AI research."
+        },
+        {
+            "date": "2025-09-10",
+            "headline": "Microsoft CEO Outlines Future Strategy",
+            "snippet": "Satya Nadella discusses Microsoft’s long-term vision in a recent interview."
+        }
+    ]
+}
