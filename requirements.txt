@@ -1,25 +1,21 @@
 # repository dependencies
 python-dotenv
 
-# get tickers
+# API data requests
 requests
 
 # VADER sentiment analysis
 vaderSentiment
 
-# Finbert sentiment analysis
-transformers
-torch
-pandas
-numpy
-
 # Agents
 pandas
+numpy
 
 # Langgraph
 langchain_core
 langchain-anthropic
 langgraph
+ipython
 
 # Backtest
 matplotlib

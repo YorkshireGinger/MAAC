@@ -86,6 +86,59 @@ python run.py --as_of_date 2025-01-02
 3. **Logging:**
    - All key steps and results are logged to the terminal for transparency.
 
+4. **Expected Output**
+
+```
+INFO:__main__:***Welcome to the PoC Multi-Agent AI called MAAC! (Multi-Agent Alpha Copilot)***
+INFO:__main__:Starting the Multi-Agent AI ...
+INFO:graph:Building the Agents ...
+INFO:graph:Agents built!
+<IPython.core.display.Image object>
+INFO:graph:Fundamental/Analyst Agent Called ...
+INFO:agents:Starting Fundamental/Analyst Tool ...
+INFO:graph:News/Sentiment Agent Called ...
+INFO:agents:Starting News/Sentiment Tool ...
+INFO:graph:Valuation/Momentum Agent Called ...
+INFO:agents:Starting Valuation/Momentum Tool ...
+INFO:agents:News/Sentiment Tool Completed!
+INFO:agents:Valuation/Momentum Tool Completed!
+INFO:agents:Fundamental/Analyst Tool Completed!
+INFO:httpx:HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+INFO:graph:Valuation/Momentum Agent Answered!
+INFO:httpx:HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+INFO:graph:Fundamental/Analyst Agent Answered!
+INFO:httpx:HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+INFO:graph:News/Sentiment Agent Answered!
+INFO:graph:Coordinator Agent Called ...
+INFO:httpx:HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+INFO:graph:Coordinator Agent Has Reached Consensus!
+INFO:__main__:
+Ticker: AAPL
+Recommendation: BUY
+Justification: AAPL receives a BUY recommendation based on 2 BUY + 1 HOLD votes. The technical analysis shows neutral RSI (58.05), but sentiment analysis reveals strong positive sentiment (0.145) driven by revolutionary AR glasses launch, health tech partnerships, and renewable energy investments. Fundamental analysis supports this with exceptional ROIC of 49.6% and healthy cash conversion (earnings-to-FCF ratio of 1.03). Despite high P/E ratio of 30.3, the company's innovation pipeline, strong profitability metrics, and multiple growth catalysts justify a bullish outlook.
+----------------------------------------
+INFO:__main__:
+Ticker: MSFT
+Recommendation: HOLD
+Justification: MSFT receives a HOLD recommendation based on 1 BUY + 2 HOLD votes. Technical analysis shows neutral RSI (52.78) after extreme volatility. While sentiment analysis is strongly positive (0.194 average sentiment) with cloud growth, AI investments, and Surface device launches, fundamental analysis raises valuation concerns with high P/E ratio of 36.3 and elevated earnings-to-FCF ratio of 1.42. The strong ROIC of 45.7% and positive FCF growth of 3.2% are offset by valuation metrics, warranting a cautious HOLD approach.
+----------------------------------------
+INFO:__main__:
+Ticker: NVDA
+Recommendation: BUY
+Justification: NVDA receives a BUY recommendation based on 1 BUY + 2 HOLD votes, requiring judgment. The fundamental analysis strongly supports BUY with the highest score of 8, exceptional ROIC of 112.2%, and outstanding financial strength. Despite neutral technical indicators (RSI 49.73) and mixed sentiment due to GPU pricing concerns, the company's superior profitability, strong position in AI boom, next-gen GPU launches, and data center expansion provide compelling long-term growth prospects that outweigh near-term headwinds.
+----------------------------------------
+INFO:__main__:
+Ticker: TSLA
+Recommendation: HOLD
+Justification: TSLA receives a HOLD recommendation based on 1 SELL + 2 HOLD votes. Technical analysis shows concerning overbought conditions (RSI 75.56), suggesting potential downside risk. Sentiment analysis reveals mixed signals with modest positive sentiment (0.078) but significant concerns around Autopilot safety and production delays. Fundamental analysis highlights major weaknesses with extremely high P/E ratio of 168.7, declining FCF growth of -17.6%, and poor ROIC of 9.4%. While next-gen battery technology and record profits provide some support, the combination of technical, fundamental, and operational challenges warrants a cautious HOLD until clearer improvement emerges.
+----------------------------------------
+INFO:__main__:Starting the Backtest ...
+INFO:__main__:3-Month Forward Returns - MAAC BUYs: -14.18%, All Tickers: -15.63%
+INFO:__main__:3-Month Sharpe Ratio - MAAC BUYs: -1.46, All Tickers: -1.67
+INFO:__main__:Cumulative Returns plot saved to 'cumulative_returns_3m.png'
+INFO:__main__:***Multi-Agent AI & Backtest Completed!***
+```
+
 ## File Structure
 - `run.py` — Main entry point for running the MAAC pipeline
 - `graph.py` — Multi-agent orchestration and LLM logic

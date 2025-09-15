@@ -23,10 +23,10 @@ def main(as_of_date):
     # Initiate the Multi-Agent AI
     logger.info("***Welcome to the PoC Multi-Agent AI called MAAC!"
             " (Multi-Agent Alpha Copilot)***")
+    logger.info("Starting the Multi-Agent AI ...")
     maac = MAAC()
 
     # Invoke the Multi-Agent AI
-    logger.info("Starting the Multi-Agent AI ...")
     run = maac.the_graph.invoke(
         {
             "tickers": tickers, 
