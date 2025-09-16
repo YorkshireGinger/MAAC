@@ -424,12 +424,12 @@ Process for EACH ticker, one at a time:
 and weigh the analysts’ reasoning and conviction to decide BUY/SELL/HOLD.
 
 Examples (for reference; do not change rules):
-- Example A: Votes = [HOLD, HOLD, BUY] → Counts {{BUY:1,HOLD:2,SELL:0}} → Rule “2×HOLD + 1×BUY → HOLD”
- → HOLD.
-- Example B: Votes = [BUY, BUY, HOLD] → Counts {{BUY:2,HOLD:1,SELL:0}} → Rule “2×BUY + 1×HOLD → UJ”
- → Use judgment to choose final recommendation.
-- Example C: Votes = [SELL, SELL, HOLD] → Counts {{BUY:0,HOLD:1,SELL:2}} → Rule “2×SELL + 1×HOLD → UJ”
- → Use judgment to choose final recommendation.
+- Example A: Votes = ['Valuation Agent': 'HOLD', 'News Sentiment Agent': 'HOLD','Fundamental Agent': 'BUY'] 
+→ Counts {{BUY:1,HOLD:2,SELL:0}} → Rule “2×HOLD + 1×BUY → HOLD” → HOLD.
+- Example B: Votes = ['Valuation Agent': 'BUY', 'News Sentiment Agent': 'BUY', 'Fundamental Agent': 'HOLD'] 
+→ Counts {{BUY:2,HOLD:1,SELL:0}} → Rule “2×BUY + 1×HOLD → UJ” → Use judgment to choose final recommendation.
+- Example C: Votes = ['Valuation Agent': 'SELL', 'News Sentiment Agent': 'SELL', 'Fundamental Agent': 'HOLD'] 
+→ Counts {{BUY:0,HOLD:1,SELL:2}} → Rule “2×SELL + 1×HOLD → UJ” → Use judgment to choose final recommendation.
 
 Prohibitions:
 - Do not reinterpret or generalize the decision rules.

@@ -70,7 +70,7 @@ Main entry point
 ```bash
 python run.py --as_of_date YYYY-MM-DD
 ```
-- `--as_of_date`: The analysis start date in `YYYY-MM-DD` format where BUY portfolio is constructed. Defaults to `2025-06-01` if not provided. This as_of_date MUST be atleast 100 days before todays data to allow the backtest to run. The data collection window for the agents to analyse is then set at 4 months prior to this as_of_date to ensure we get alteast 1 earnings quarter for financial metrics.  
+- `--as_of_date`: The analysis start date in `YYYY-MM-DD` format where BUY portfolio is constructed. Defaults to `2025-06-01` if not provided. This as_of_date MUST be atleast 100 days before todays date to allow the backtest to run. The data collection window for the agents to analyse is then set at 4 months prior to this as_of_date to ensure we get alteast 1 earnings quarter for financial metrics.  
 
 Example:
 ```bash
@@ -123,35 +123,12 @@ INFO:graph:Agents built!
 INFO:graph:Fundamental/Analyst Agent Called ...
 INFO:agents:Starting Fundamental/Analyst Tool ...
 INFO:graph:News/Sentiment Agent Called ...
-INFO:agents:Starting News/Sentiment Tool ...
 INFO:graph:Valuation/Momentum Agent Called ...
+INFO:agents:Starting News/Sentiment Tool ...
 INFO:agents:Starting Valuation/Momentum Tool ...
 INFO:agents:News/Sentiment Tool Completed!
-INFO:agents:Valuation/Momentum Tool Completed!
 INFO:agents:Fundamental/Analyst Tool Completed!
-INFO:httpx:HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
-INFO:graph:News/Sentiment Agent Answered!
-INFO:graph:------- News/Sentiment Agent Recommendation --------
-INFO:graph:
-Ticker: AAPL
-Recommendation: BUY
-Justification: AAPL shows overall positive sentiment with an average snippet sentiment value of 0.145 and median of 0.273. Key positive drivers include revolutionary AR glasses launch, stock surge after product reveal, renewable energy investments, and enhanced security features. Despite some negative news about iOS bugs and lawsuits, the overall sentiment remains positive, indicating investor optimism about Apple's innovation pipeline and market position.
-----------------------------------------
-INFO:graph:
-Ticker: TSLA
-Recommendation: BUY
-Justification: TSLA demonstrates overall positive sentiment with an average snippet sentiment value of 0.078. Notable positive catalysts include next-gen battery technology unveiling, stock hitting new highs on strong delivery numbers, quarterly profits beating expectations, and affordable EV model launch. While there are concerns about Autopilot safety and labor practices, the positive sentiment around technological advances and financial performance outweighs the negatives.
-----------------------------------------
-INFO:graph:
-Ticker: NVDA
-Recommendation: BUY
-Justification: NVDA exhibits overall positive sentiment with an average snippet sentiment value of 0.070. Positive momentum is driven by next-gen GPU launches, strong AI demand pushing stock to new highs, data center solutions expansion, and CEO's optimistic AI future outlook. Despite some concerns about GPU pricing and gaming revenue decline, the overall positive sentiment reflects investor confidence in NVIDIA's AI leadership and growth prospects.
-----------------------------------------
-INFO:graph:
-Ticker: MSFT
-Recommendation: BUY
-Justification: MSFT shows the strongest positive sentiment among all tickers with an average snippet sentiment value of 0.194 and median of 0.189. Strong positive drivers include new Surface device launches, stock reaching all-time highs due to cloud growth, AI startup investments, gaming division expansion, and global data center expansion. While facing some challenges like Azure outages and employee protests, the overall positive sentiment indicates strong investor confidence in Microsoft's diversified growth strategy.
-----------------------------------------
+INFO:agents:Valuation/Momentum Tool Completed!
 INFO:httpx:HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
 INFO:graph:Valuation/Momentum Agent Answered!
 INFO:graph:------- Valuation/Momentum Agent Recommendation --------
@@ -176,6 +153,29 @@ Recommendation: HOLD
 Justification: TSLA's most recent RSI value on 2025-05-30 is 68.34, which falls within the 30-70 range indicating neutral momentum. While the stock showed severe oversold conditions in early March (RSI as low as 13.56) and later exhibited overbought periods in May, it has settled into neutral territory, making HOLD the appropriate recommendation.
 ----------------------------------------
 INFO:httpx:HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+INFO:graph:News/Sentiment Agent Answered!
+INFO:graph:------- News/Sentiment Agent Recommendation --------
+INFO:graph:
+Ticker: AAPL
+Recommendation: BUY
+Justification: AAPL shows overall positive sentiment with an average snippet sentiment value of 0.145 and median of 0.273. Key positive drivers include revolutionary AR glasses launch, stock surge after product reveal, renewable energy investments, and enhanced security features. Despite some negative news about iOS bugs and lawsuits, the overall sentiment remains positive, indicating favorable investor reaction.
+----------------------------------------
+INFO:graph:
+Ticker: TSLA
+Recommendation: BUY
+Justification: TSLA demonstrates overall positive sentiment with an average snippet sentiment value of 0.078. Positive catalysts include next-gen battery technology unveiling, stock hitting new highs, strong quarterly profits beating expectations, and affordable EV model launch. While there are concerns about Autopilot safety and labor practices, the positive sentiment outweighs negatives, suggesting investor optimism.
+----------------------------------------
+INFO:graph:
+Ticker: NVDA
+Recommendation: BUY
+Justification: NVDA exhibits overall positive sentiment with an average snippet sentiment value of 0.070. Positive momentum comes from next-gen GPU launch, strong AI demand driving stock rises, data center solutions expansion, and CEO's positive AI future outlook. Despite pricing backlash and gaming revenue decline, the overall positive sentiment indicates continued investor confidence in the company's AI leadership.
+----------------------------------------
+INFO:graph:
+Ticker: MSFT
+Recommendation: BUY
+Justification: MSFT shows the strongest positive sentiment among all tickers with an average snippet sentiment value of 0.194 and median of 0.189. Strong positive drivers include new Surface device launches, stock reaching all-time highs due to cloud growth, AI startup investments, gaming division expansion, and global data center expansion. While facing some criticism over Azure outages and employee protests, the overwhelmingly positive sentiment suggests strong investor confidence.
+----------------------------------------
+INFO:httpx:HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
 INFO:graph:Fundamental/Quality Agent Answered!
 INFO:graph:------- Fundamental/Quality Agent Recommendation --------
 INFO:graph:
@@ -186,17 +186,17 @@ Justification: AAPL receives a BUY recommendation with a fundamental score of 7,
 INFO:graph:
 Ticker: MSFT
 Recommendation: HOLD
-Justification: MSFT receives a HOLD recommendation with a fundamental score of 6, which falls exactly at the upper bound of the HOLD range (4-6 inclusive). The company shows strong quality fundamentals with excellent ROIC of 48.2% and robust interest coverage of 43.4x, indicating strong profitability and low financial risk. The manageable debt-to-equity ratio of 0.76 reflects a healthy balance sheet. However, negative FCF growth of -3.6% and earnings-to-FCF ratio of 1.32 (indicating earnings exceed FCF) present some concerns for quality investors.
+Justification: MSFT receives a HOLD recommendation with a fundamental score of 6, which falls within the 4-6 range. The company shows solid quality fundamentals with strong ROIC of 48.2% and excellent interest coverage of 43.4x, indicating strong profitability and low financial risk. The manageable debt-to-equity ratio of 0.76 reflects a healthy balance sheet. However, negative FCF growth of -3.6% and earnings-to-FCF ratio of 1.32 (indicating earnings exceed FCF) present some concerns for cash generation efficiency.
 ----------------------------------------
 INFO:graph:
 Ticker: NVDA
 Recommendation: BUY
-Justification: NVDA receives a BUY recommendation with a fundamental score of 8, significantly above the 6 threshold. The company exhibits exceptional quality characteristics with outstanding ROIC of 116.1%, demonstrating superior capital efficiency. The company shows positive FCF growth of 7.6%, excellent interest coverage of 341.2x, and a strong balance sheet with low debt-to-equity ratio of 0.41. The earnings-to-FCF ratio of 1.20 indicates solid cash flow generation relative to earnings, making this a high-quality growth company.
+Justification: NVDA receives a BUY recommendation with a fundamental score of 8, the highest among all tickers. The company exhibits exceptional quality characteristics with outstanding ROIC of 116.1%, demonstrating superior capital efficiency. Strong fundamentals include positive FCF growth of 7.6%, low debt-to-equity ratio of 0.41 indicating conservative financial management, and excellent interest coverage of 341.2x. The earnings-to-FCF ratio of 1.20 shows reasonable alignment between earnings and cash flow generation.
 ----------------------------------------
 INFO:graph:
 Ticker: TSLA
 Recommendation: HOLD
-Justification: TSLA receives a HOLD recommendation with a fundamental score of 4, which falls at the lower bound of the HOLD range (4-6 inclusive). The company shows mixed quality signals with a reasonable debt-to-equity ratio of 0.66 and adequate interest coverage of 26.5x. However, quality concerns include low ROIC of 11.8% indicating poor capital efficiency, negative FCF growth of -0.8%, and high earnings-to-FCF ratio of 1.97 suggesting earnings significantly exceed cash flow generation. The very high P/E ratio of 182.8 also reflects valuation concerns.
+Justification: TSLA receives a HOLD recommendation with a fundamental score of 4, which falls at the lower boundary of the 4-6 range. The company shows mixed quality indicators with a reasonable debt-to-equity ratio of 0.66 and adequate interest coverage of 26.5x. However, significant quality concerns include low ROIC of 11.8% indicating poor capital efficiency, negative FCF growth of -0.8%, and high earnings-to-FCF ratio of 1.97 suggesting earnings significantly exceed actual cash generation. The extremely high P/E ratio of 182.8 also reflects valuation concerns.
 ----------------------------------------
 INFO:graph:Coordinator Agent Called ...
 INFO:httpx:HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
@@ -204,22 +204,22 @@ INFO:graph:Coordinator Agent Has Reached Consensus!
 INFO:__main__:
 Ticker: AAPL
 Recommendation: BUY
-Justification: AAPL receives a BUY recommendation based on analyst votes: [HOLD, BUY, BUY] → Counts {BUY:2, HOLD:1, SELL:0} → Rule '2×BUY + 1×HOLD → Use Your Judgement'. Given the strong positive sentiment (0.145 average) driven by revolutionary AR glasses launch and innovation pipeline, combined with solid fundamental quality (score 7) showing exceptional ROIC of 46% and strong earnings-to-FCF ratio, the positive momentum outweighs the neutral technical momentum (RSI 53.01). The company's strong fundamentals and positive market sentiment justify the BUY recommendation despite neutral momentum indicators.
+Justification: AAPL receives a BUY recommendation based on voting results: Valuation Agent (HOLD), News Sentiment Agent (BUY), Fundamental Agent (BUY). Vote counts: {BUY:2, HOLD:1, SELL:0}. This maps to '2×BUY + 1×HOLD → Use Your Judgement'. After weighing the analysts' reasoning, the strong positive sentiment (0.145 average) driven by revolutionary AR glasses launch and renewable energy investments, combined with exceptional fundamental quality (ROIC 46%, earnings-to-FCF 0.98), outweighs the neutral momentum concerns. The RSI of 53.01 indicates stable conditions, making BUY the appropriate choice given the strong fundamentals and positive market sentiment.
 ----------------------------------------
 INFO:__main__:
 Ticker: MSFT
 Recommendation: HOLD
-Justification: MSFT receives a HOLD recommendation based on analyst votes: [SELL, BUY, HOLD] → Counts {BUY:1, HOLD:1, SELL:1} → Rule '2×HOLD + 1×BUY → HOLD' (treating this as closest match). The overbought technical conditions (RSI 71.42) suggesting overvaluation are balanced by the strongest positive sentiment among all tickers (0.194 average) driven by cloud growth and AI investments, and solid fundamental quality (score 6) with excellent ROIC of 48.2%. The mixed signals across all three analyses support a cautious HOLD position until technical conditions normalize.
+Justification: MSFT receives a HOLD recommendation based on voting results: Valuation Agent (SELL), News Sentiment Agent (BUY), Fundamental Agent (HOLD). Vote counts: {BUY:1, HOLD:1, SELL:1}. This maps to '2×HOLD + 1×BUY → HOLD' per the decision matrix. The overbought technical conditions (RSI 71.42) signal caution despite strong positive sentiment (0.194 average) from cloud growth and AI investments. The solid fundamental score of 6 with strong ROIC of 48.2% and healthy balance sheet supports stability, but negative FCF growth (-3.6%) and technical overbought status warrant a cautious HOLD approach.
 ----------------------------------------
 INFO:__main__:
 Ticker: NVDA
 Recommendation: BUY
-Justification: NVDA receives a BUY recommendation based on analyst votes: [SELL, BUY, BUY] → Counts {BUY:2, HOLD:0, SELL:1} → Rule '2×BUY + 1×SELL → HOLD'. However, applying the rule strictly results in HOLD. The exceptional fundamental quality (score 8) with outstanding ROIC of 116.1% and positive FCF growth of 7.6%, combined with strong positive sentiment (0.070 average) driven by AI leadership and next-gen GPU launches, creates a compelling investment case despite overbought technical conditions (RSI 73.32). The fundamental strength and positive sentiment justify maintaining exposure.
+Justification: NVDA receives a BUY recommendation based on voting results: Valuation Agent (SELL), News Sentiment Agent (BUY), Fundamental Agent (BUY). Vote counts: {BUY:2, HOLD:0, SELL:1}. This maps to '2×BUY + 1×SELL → HOLD' per the decision matrix. Despite overbought technical conditions (RSI 73.32), the exceptional fundamental quality (score 8, ROIC 116.1%, positive FCF growth 7.6%) and strong positive sentiment (0.070 average) driven by AI leadership and next-gen GPU launches provide compelling reasons for a BUY recommendation. The company's superior capital efficiency and conservative financial management outweigh short-term technical concerns.
 ----------------------------------------
 INFO:__main__:
 Ticker: TSLA
 Recommendation: HOLD
-Justification: TSLA receives a HOLD recommendation based on analyst votes: [HOLD, BUY, HOLD] → Counts {BUY:1, HOLD:2, SELL:0} → Rule '2×HOLD + 1×BUY → HOLD'. The neutral technical momentum (RSI 68.34) and mixed fundamental quality (score 4) with low ROIC of 11.8% and negative FCF growth are balanced by positive sentiment (0.078 average) driven by next-gen battery technology and strong delivery numbers. The convergence of neutral technical signals and mixed fundamental quality, despite positive sentiment, supports a HOLD recommendation until clearer directional signals emerge.
+Justification: TSLA receives a HOLD recommendation based on voting results: Valuation Agent (HOLD), News Sentiment Agent (BUY), Fundamental Agent (HOLD). Vote counts: {BUY:1, HOLD:2, SELL:0}. This maps to '2×HOLD + 1×BUY → HOLD' per the decision matrix. While positive sentiment (0.078 average) from next-gen battery technology and strong quarterly profits provides optimism, the neutral momentum (RSI 68.34) and mixed fundamental quality (score 4, low ROIC 11.8%, negative FCF growth -0.8%) suggest maintaining current positions rather than adding exposure.
 ----------------------------------------
 INFO:__main__:Starting the Backtest ...
 INFO:__main__:3-Month Forward Returns - MAAC BUYs: 20.94%, All Tickers: 12.25%
@@ -231,11 +231,11 @@ INFO:__main__:***Multi-Agent AI & Backtest Completed!***
 Backtest outputs are in `/outputs`
 
 ## Decisions Made
-**Leakage Control:** The agents are under strict instruction to use information provded and not use any of their own information or knowledge past the as_of_date. The model used in this repo is trained up until 20250514 so any as_of_date chosen after that should have no issue anyway. In addition, the fundamental data used by the Fundamental agent is 90 days prior to the as_of_date to ensure there is not leakage between an earnings report date and release data.
+**Leakage Control:** The agents are under strict instruction to use information provded and not use any of their own information or knowledge past the as_of_date. The model used in this repo is trained up until 20250514 so any as_of_date chosen after that should have no issue anyway. In addition, the fundamental data used by the Fundamental agent is 90 days prior to the as_of_date to ensure there is no leakage between an earnings report date and actual release date.
 
 **Data Lookback Window:** The data collection has a 120 days lookback window.
 
-**News Data:** I have chosen to not run the news data pipeline from financialdatasets.ai as you have to open a link to get snippets which is not best use of me time. Therefore, I have let an LLM create the headlines and snippets. 
+**News Data:** I have chosen to not run the news data pipeline from financialdatasets.ai as you have to open a link to get snippets which is not best use of my time. Therefore, I have let an LLM create the headlines and snippets. 
 
 **News Sentiment:** I have chosen to use VADER for this task as it is simple to install and use. Had I  more time I would expeirmented with FinBERT and other finance-specific sentiment models which will better classify jargon. Unfortuntely with FinBERT, it takes way too long to pip install the dependencies. 
 
@@ -244,7 +244,7 @@ Backtest outputs are in `/outputs`
 **Agent Scoring Methods:** These are educuated guesses and aren't neccessarily what they should be.
 - **Valuation/Momentum Rule**: RSI was chosen, many other could have been. The logic is to follow generally accepted, though unnecessarliy arbitary, ovrebought (<30) and oversold (>70) levels and then map to BUY/HOLD/SELL. 
 - **News Sentiment Rule**: VADER outputs a compound score which score overall sentiment and has generally accepted mappings to positive, neutal and negative sentiment and then to BUY/HOLD/SELL. 
-- **Fundamental/Quality Rule**: Rough values for good and bad for each metric are assigned based on the four tickers being tech companies. However, to score how fundamentally good a company is, you would need to know the market levels and peer levels for each metric to get a relative sense of good/bad. I provided a scorecard for a total company score with thresholds mapped to BUY/HOLD/SELL. 
+- **Fundamental/Quality Rule**: Rough values for good and bad for each metric are assigned based on the four tickers being tech companies. However, to score how fundamentally good a company is, you would need to know the market levels, peer levels and its own historic levels for each metric to get a relative sense of good/bad. I provided a scorecard for a total company score with thresholds mapped to BUY/HOLD/SELL. 
 - **Coordinator Rule**: Created a consenus matrix whereby: 
 ```
 Decision rules (single source of truth):
@@ -271,7 +271,7 @@ Decision rules (single source of truth):
 - Many more...
 
 ## Known Issues
-- Sometimes the LLM uses its own judgement when it is told not too. This is shown the exmaple output shown above. 
+- Sometimes the LLM uses its own judgement when it is told not too. This is shown in the example output shown above. 
 - For Nvidia, it overrides the voting system and thinks that despite RSI showing it is overbought and a SELL, it decides it should BUY. 
 - To mitigate this I would be adding another Agent that explicity checks for these kinds of LLM hallucinations to capture them before they get to the user.
 
