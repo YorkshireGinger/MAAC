@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Valuation/Momentum Agent Tools
-def calculate_rsi(prices, period=14):
+def calculate_rsi(prices, period=14) -> pd.Series:
 
     delta = prices.diff()
     gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
@@ -24,7 +24,7 @@ def run_valuation_agent_tool(
     interval='day',
     interval_multiplier=1,
     rsi_period=14
-):
+) -> str:
     logger.info(f"Starting Valuation/Momentum Tool ...")
 
     # Get daily prices from API
@@ -57,7 +57,7 @@ def run_valuation_agent_tool(
         right_index=True
     )
 
-    # Convert to JSON for better LLM ingestion
+    # Convert to JSON string for better LLM ingestion
     rsi_json = rsi_df.to_json(orient='records', date_format='iso')
 
     logger.info("Valuation/Momentum Tool Completed!")
@@ -74,7 +74,7 @@ def run_news_sentiment_agent_tool(
     run_news_pipeline=False, 
     news_file='data/stock_news.json', 
     output_file='data/ticker_news_sentiment_scores.json'
-):
+) -> tuple[dict, dict]:
     
     logger.info("Starting News/Sentiment Tool ...")
 
@@ -162,9 +162,11 @@ def run_fundamental_agent_tool(
     report_period_gte,
     period='ttm',
     limit=1
-):
+) -> str:
     
-    # TODO add some gauge as to how good/bad each metric is relative to its peers - this could a percentile
+    # TODO Calc a metric to how good/bad each metric is relative to its peers 
+    # or to its own history - this could a percentile or z-score - as absolute
+    # values aren't as useful as relative ones
 
     logger.info("Starting Fundamental/Analyst Tool ...")
 

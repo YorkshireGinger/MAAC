@@ -7,7 +7,11 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 load_dotenv()
 
-def fetch_stock_news(tickers, start_date, end_date):
+def fetch_stock_news(
+    tickers: list[str],
+    start_date: str,
+    end_date: str
+) -> dict:
     
     headers = {
         "X-API-KEY": os.getenv("FINANCIAL_DATASETS_API_KEY")

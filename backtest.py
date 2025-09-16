@@ -1,6 +1,9 @@
+from csv import writer
 from data.get_stock_prices import get_stock_prices
 import pandas as pd
+from datetime import date, timedelta
 import matplotlib.pyplot as plt
+from openpyxl import load_workbook
 import numpy as np
 import logging
 
@@ -20,15 +23,16 @@ class Backtest:
     - Plot cumulative returns for both the "BUY" and benchmark portfolios.
 `    """
 
-    def __init__(self, tickers, as_of_date, ai_recommendations):
-        self.tickers = tickers
-        self.as_of_date = as_of_date
-        self.end_date_3m = (pd.to_datetime(self.as_of_date) + pd.DateOffset(months=3)).strftime("%Y-%m-%d")
-        self.ai_recommendations = ai_recommendations
+    def __init__(self, tickers, as_of_date, ai_recommendations) -> None:
+        self.tickers: list[str] = tickers
+        self.as_of_date: str = as_of_date
+        self.end_date_3m: str = (date.fromisoformat(as_of_date) + timedelta(days=90)).strftime("%Y-%m-%d")
+        self.ai_recommendations: dict[str, str] = ai_recommendations
+        self.filename = f"outputs/{as_of_date}_backtest_results.xlsx"
         self.prepare_backtest_data()
 
 
-    def prepare_backtest_data(self):
+    def prepare_backtest_data(self) -> None:
         
         logger.debug("Fetching historical stock prices for backtest...")
 
@@ -48,11 +52,14 @@ class Backtest:
         self.prices_df = prices_df.sort_values(['ticker', 'time'])
         
         # make ai recommendations dataframe
-        self.ai_recommendations_df = pd.DataFrame(self.ai_recommendations.items(), columns=['ticker', 'recommendation'])
+        self.ai_recommendations_df = pd.DataFrame(
+            self.ai_recommendations.items(), 
+            columns=['ticker', 'recommendation']
+        )
 
         logger.debug("Backtest data preparation complete.")
 
-    def run_3m_fwd_returns(self):
+    def run_3m_fwd_returns(self) -> tuple:
         
         logger.debug("Calculating 3-month forward returns...")
 
@@ -85,13 +92,29 @@ class Backtest:
             ['3m_forward_return']
             .mean()
         )
-        all_returns = three_month_ai_rec_df['3m_forward_return'].mean()
+        benchmark_returns = three_month_ai_rec_df['3m_forward_return'].mean()
+
+        # Save buy and benchmark returns results in excel
+        results_df = pd.DataFrame({
+            'Strategy': ['AI BUY', 'Benchmark'],
+            '3M Forward Return': [buy_returns, benchmark_returns]
+        })
+
+        # Add Active Return
+        results_df.loc[len(results_df)] = ['Active', buy_returns - benchmark_returns]
+
+        # write results to excel
+        with pd.ExcelWriter(
+            self.filename,
+            engine="openpyxl",
+            mode="w",                # append mode
+            # if_sheet_exists="replace"  # or "overlay"
+        ) as writer:
+            results_df.to_excel(writer, sheet_name="3M Forward Returns", index=False)
 
         logger.debug("3-month forward returns calculation complete.")
 
-        return buy_returns, all_returns
-
-
+        return buy_returns, benchmark_returns
 
     def sharpe_ratio_3m(
         self, 
@@ -118,7 +141,7 @@ class Backtest:
 
         return sharpe_annualized
 
-    def run_3m_sharpe_ratio(self):
+    def run_3m_sharpe_ratio(self) -> tuple:
         
         # copy prices_df to avoid modifying original
         prices_df = self.prices_df.copy()
@@ -156,6 +179,21 @@ class Backtest:
         self.buy_daily_returns = buy_daily_returns
         self.benchmark_daily_returns = benchmark_daily_returns
 
+        # Save buy and benchmark sharpe ratio results in excel
+        results_df = pd.DataFrame({
+            'Strategy': ['AI BUY', 'Benchmark'],
+            '3M Sharpe Ratio': [buy_sharpe_ratio, benchmark_sharpe_ratio]
+        })
+
+        # write results to excel
+        with pd.ExcelWriter(
+            self.filename,
+            engine="openpyxl",
+            mode="a",                # append mode
+            if_sheet_exists="replace"  # or "overlay"
+        ) as writer:
+            results_df.to_excel(writer, sheet_name="3M Sharpe Ratio", index=False)
+
         return buy_sharpe_ratio, benchmark_sharpe_ratio
 
     def plot_cumulative_returns_3m(
@@ -186,7 +224,7 @@ class Backtest:
         plt.savefig("outputs/cumulative_3m_return_comparison.png")
         plt.close()
 
-    def run_plot_cumulative_returns_3m(self):
+    def run_plot_cumulative_returns_3m(self) -> None:
         # Plot cumulative 3m return for BUY portfolio and benchmark
         self.plot_cumulative_returns_3m(
             buy_daily_returns=self.buy_daily_returns.set_index('time')['daily_return'],

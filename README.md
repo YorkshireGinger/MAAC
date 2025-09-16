@@ -14,7 +14,7 @@ MAAC (Multi-Agent Alpha Copilot) is a proof-of-concept AI system for financial a
 
 ## Requirements
 
-- Tested on Ubuntu (WSL2 on Windows 11)
+- Tested on Ubuntu 24.4.01 LTS (WSL2 on Windows 11)
 - Tested using Python 3.12
 - API keys for [financialdatasets.ai](https://financialdatasets.ai/) and [Anthropic](https://www.anthropic.com/)
 - See `requirements.txt` for all Python dependencies
@@ -27,18 +27,23 @@ MAAC (Multi-Agent Alpha Copilot) is a proof-of-concept AI system for financial a
    cd MAAC
    ```
 
-2. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Setup & Initiate Virtual Environment**
+2. **Setup & Initiate Virtual Environment**
     ```bash
     python3 -m venv venv
     source venv/bin/activate
     ```
+    OR 
+    ```bash
+    python3.12 -m venv venv
+    source venv/bin/activate
+    ```
 
-3. **Set up environment variables:**
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Set up environment variables:**
    - Copy `.env.example` to `.env` or create a `.env` file in the root directory.
    - Add your API keys:
      ```env
@@ -49,12 +54,23 @@ MAAC (Multi-Agent Alpha Copilot) is a proof-of-concept AI system for financial a
 
 ## Usage
 
-Run the main pipeline from the terminal within the initated venv:
+Run the tests and main pipeline from the terminal within the initated venv:
 
+Tests that we can connect to the relevant financialdatasets.ai APIs.
+```bash
+python -m unittest tests/test_financial_api.py
+```
+
+Tests that the sharpe ratio math is correct.
+```bash
+python -m unittest tests/test_sharpe_ratio.py
+```
+
+Main entry point
 ```bash
 python run.py --as_of_date YYYY-MM-DD
 ```
-- `--as_of_date`: The analysis start date in `YYYY-MM-DD` format where BUY portfolio is constructed. Defaults to `2025-01-02` if not provided.
+- `--as_of_date`: The analysis start date in `YYYY-MM-DD` format where BUY portfolio is constructed. Defaults to `2025-01-02` if not provided. This as_of_date MUST be atleast 100 days before todays data to allow the backtest to run. The data collection window for the agents to analyse is then set at 4 months prior to this as_of_date to ensure we get alteast 1 earnings quarter for financial metrics.  
 
 Example:
 ```bash
@@ -67,7 +83,7 @@ python run.py --as_of_date 2025-01-02
      - Valuation/Momentum (RSI)
      - News/Sentiment (VADER)
      - Fundamental/Quality (financial metrics)
-   - Each agent fetches real data and produces recommendations.
+   - Each agent fetches real data (except news for now) and produces recommendations.
    - The LLM (Anthropic Claude) coordinates and combines these into a final recommendation for each ticker.
    - The repo uses [LangGraph](https://langchain-ai.github.io/langgraph/tutorials/workflows/) to implement a router workflow.
 
@@ -86,7 +102,7 @@ python run.py --as_of_date 2025-01-02
 3. **Logging:**
    - All key steps and results are logged to the terminal for transparency.
 
-4. **Expected Output**
+4. **Expected Output**: `--as_of_date 2025-06-06`
 
 ```
 INFO:__main__:***Welcome to the PoC Multi-Agent AI called MAAC! (Multi-Agent Alpha Copilot)***
@@ -139,14 +155,76 @@ INFO:__main__:Cumulative Returns plot saved to 'cumulative_returns_3m.png'
 INFO:__main__:***Multi-Agent AI & Backtest Completed!***
 ```
 
+Backtest outputs are in `outputs`
+
+
 ## File Structure
 - `run.py` — Main entry point for running the MAAC pipeline
 - `graph.py` — Multi-agent orchestration and LLM logic
 - `agents.py` — Agent tools for valuation, sentiment, and fundamentals
 - `backtest.py` — Backtesting and performance evaluation
 - `data/` — Data fetching utilities and news/sentiment analysis
+- `outputs/` — Backtest outputs 
 - `requirements.txt` — Python dependencies
-- `.env` — Environment variables (API keys)
+- `.env` — Environment variables 
+
+## Decisions Made
+**Leakage Control:** The agents are under strict instruction to use information provded and not use any of their own information or knowledge past the as_of_date. The model used in this repo is trained up until 20250514 so any as_of_date chosen after that should have no issue anyway. In addition, the fundamental data used by the Fundamental agent is 90 days prior to the as_of_date to ensure there is not leakage between an earnings report date and release data.
+
+**Data Lookback Window:** The data collection has a 120 days lookback window.
+
+**News Data:** I have chosen to not run the news data pipeline from financialdatasets.ai as you have to open a link to get snippets which is not best use of me time. Therefore, I have let an LLM create the headlines and snippets. 
+
+**News Sentiment:** I have chosen to use VADER for this task as it is simple to install and use. Had I  more time I would expeirmented with FinBERT and other finance-specific sentiment models which will better classify jargon. Unfortuntely with FinBERT, it takes way too long to pip install the dependencies. 
+
+**Fundamental Inputs:** I have chosen metrics that aim to cover the specturm of earnings quality, cash generation and financial strength. These are simply extracted from financialdatasets.ai. 
+
+**Agent Scoring Methods:** These are educuated guesses and aren't neccessarily what they should be.
+- **Valuation/Momentum Rule**: RSI was chosen, many other could have been. The logic is to follow generally accepted, though unnecessarliy arbitary, ovrebought (<30) and oversold (>70) levels and then map to BUY/HOLD/SELL. 
+- **News Sentiment Rule**: VADER outputs a compound score which score overall sentiment and has generally accepted mappings to positive, neutal and negative sentiment and then to BUY/HOLD/SELL. 
+- **Fundamental/Quality Rule**: Rough values for good and bad for each metric are assigned based on the four tickers being tech companies. However, to score how fundamentally good a company is, you would need to know the market levels and peer levels for each metric to get a relative sense of good/bad. I provided a scorecard for a total company score with thresholds mapped to BUY/HOLD/SELL. 
+- **Coordinator Rule**: Created a consenus matrix whereby: 
+```
+Decision rules (single source of truth):
+- 3×BUY → BUY
+- 2×BUY + 1×HOLD → Use Your Judgement (UJ)
+- 2×BUY + 1×SELL → HOLD
+- 3×HOLD → HOLD
+- 2×HOLD + 1×BUY → HOLD
+- 2×HOLD + 1×SELL → HOLD
+- 3×SELL → SELL
+- 2×SELL + 1×BUY → HOLD
+- 2×SELL + 1×HOLD → Use Your Judgement (UJ)
+```
+- *Use Your Judgement* is their to understand that PMs don't live by hard and fast rules and excersize judgement in marginal decicsions. It also provides an avenue to use a RAG to help egt more clarifying information should the PM need it.  
+
+**Agent Prompts**: These were iterated through, starting with the ones in the Blackrock paper, and then finalised as they are now. The emphasis is on following a rules based appraoch and not deviating. They can be seen in the `graph.py` file
+
+## Next Steps
+- Experiment with different Agentic workflows as this project scope expanded. [Here are some ideas.](https://langchain-ai.github.io/langgraph/tutorials/workflows/).
+- Co-ordinate with analyst and PMs to add rigour to agents and backtest.
+- Add RAG to collect qualititaive information or data. 
+- Many more...
+
+## Time Accounting
+- Reading and re-Reading Blackrock paper and assessment case study - 1.5hrs
+- Creating data fucntions - 1.5hr
+- Creating the Langgraph framework - 3hrs
+- Iterating the agent prompts - 1hr
+- Creating the agent tools - 3hrs
+- Creating the backtest framework - 3hrs
+- Creating Tests - 1hrs
+- Cleaning the repo - 3hrs
+- Writing README - 2hrs
+
+## AI Tool Usage
+- large parts of the README
+- doc strings and fucntions input/output types 
+- converting sandbox code to functions and classes
+- the tests are born from copilot assistance
+- most comments (re-read by myself to make sense or alter)
+- any time the copilot autofills what I would have written (or better!)
+
 
 ## Notes
 - The system is a proof-of-concept and will require further tuning for production use.

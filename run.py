@@ -1,6 +1,6 @@
 
 import argparse
-from datetime import date
+from datetime import date, timedelta
 import logging
 
 # Set up logging
@@ -13,9 +13,9 @@ def main(as_of_date):
     
     # SET PARAMETERS
     tickers = ['AAPL', 'MSFT', 'NVDA', 'TSLA']
-    today_date = date.today().strftime("%Y-%m-%d")
-
-    # RUN TESTS
+    # End data is ~4 months before as_of_date to allow for atleast one earnings report (US)
+    # to be used for fundamnetal metrics in fundamental agent
+    data_start_date = (date.fromisoformat(as_of_date) - timedelta(days=120)).strftime("%Y-%m-%d")
 
     # RUN GRAPH
     from graph import MAAC
@@ -31,7 +31,7 @@ def main(as_of_date):
         {
             "tickers": tickers, 
             "as_of_date": as_of_date,
-            "today_date": today_date
+            "data_start_date": data_start_date
         }
     )
 
@@ -74,8 +74,6 @@ def main(as_of_date):
     logger.info("***Multi-Agent AI & Backtest Completed!***")
 
 if __name__ == "__main__":
-    """Entry point for running the Multi-Agent Alpha Copilot (MAAC) and Backtest."""
-
     # Set up argument parser for command line execution
     parser = argparse.ArgumentParser(description="Run MAAC with a specific as_of_date.")
     parser.add_argument(
@@ -86,6 +84,22 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    # Call the main function with the parsed arguments
+    # Check if as_of_date is in expected format
+    try:
+        as_of_date_obj = date.fromisoformat(args.as_of_date)
+    except ValueError:
+        logger.error(f"Invalid date format for as_of_date: {args.as_of_date}. "
+                     f"Use YYYY-MM-DD.")
+        exit(1)
+
+    # Check if as_of_date is more than 100 days before today so the backtest can run
+    latest_date = date.today() - timedelta(days=100)
+    if as_of_date_obj > latest_date:
+        logger.error(f"as_of_date must be more than 100 days before today "
+                     f"(any date before {latest_date.strftime('%Y-%m-%d')}). "
+                     f"You provided: {args.as_of_date}")
+        exit(1)
+
+    # Call the main function with the validated argument
     main(args.as_of_date)
 

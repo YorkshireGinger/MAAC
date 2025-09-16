@@ -1,21 +1,22 @@
 # repository dependencies
-python-dotenv
+python-dotenv=1.1.1
+ipython=9.5.0
 
 # API data requests
-requests
+requests=2.32.5
 
 # VADER sentiment analysis
-vaderSentiment
+vaderSentiment=3.3.2
 
 # Agents
-pandas
-numpy
+pandas=2.3.2
+numpy=2.3.3
 
 # Langgraph
-langchain_core
-langchain-anthropic
-langgraph
-ipython
+langchain_core=0.3.76
+langchain-anthropic=0.3.20
+langgraph=0.6.7
 
 # Backtest
-matplotlib
+matplotlib=3.10.6
+openpyxl=3.1.5
