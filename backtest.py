@@ -221,7 +221,7 @@ class Backtest:
         plt.legend()
         plt.grid(True)
         plt.tight_layout()
-        plt.savefig("outputs/cumulative_3m_return_comparison.png")
+        plt.savefig(f"outputs/{self.as_of_date}_cumulative_3m_return_comparison.png")
         plt.close()
 
     def run_plot_cumulative_returns_3m(self) -> None:

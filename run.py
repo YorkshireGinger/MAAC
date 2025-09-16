@@ -79,8 +79,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--as_of_date", 
         type=str, 
-        default="2025-01-02", 
-        help="Date in YYYY-MM-DD format (default: 2025-01-02)"
+        default="2025-06-01", 
+        help="Date in YYYY-MM-DD format (default: 2025-06-01)"
     )
     args = parser.parse_args()
 

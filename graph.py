@@ -396,6 +396,7 @@ Your Goal:
 - Your final output should be a single recommendation for EACH ticker of either BUY, 
 SELL, or HOLD, along with a comprehensive justification that encapsulates the key 
 points from the three provided analyses.
+- Ensure the BUY/HOLD/SELL decision matches the justification provided.
 
 Strict information constraint:
 - Do NOT use any knowledge after {state['as_of_date']}.
@@ -416,7 +417,7 @@ Hard constraint on UJ:
 (2×SELL + 1×HOLD).
 - In ALL other cases, you MUST NOT use judgment. Apply the matrix directly.
 
-Process:
+Process for EACH ticker, one at a time:
 1) Count votes (BUY, HOLD, SELL).
 2) Map counts to the final recommendation using the decision rules above.
 3) Only if the result is UJ, explicitly state that this is part of the voting process 
@@ -434,11 +435,13 @@ Prohibitions:
 - Do not reinterpret or generalize the decision rules.
 - Do not output “Use Your Judgement” as the final recommendation. It is a step, not an 
 output label.
-- Do not use judgment for any case except the two explicitly listed.
+- Do not use your judgment for any case except the two cases explicitly listed above.
 
 Reminder:
 - All content must adhere to {state['as_of_date']}.
 - Follow the output schema strictly.
+- BUY/HOLD/SELL recommendation must match the justification provided for EACH ticker.
+- Do NOT use your judgment for any case except the two cases explicitly listed above.
 """
                 ),
                 HumanMessage(content=state['valuation_recommendation'].model_dump_json()),
